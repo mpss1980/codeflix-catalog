@@ -17,7 +17,26 @@ public class Category
         Description = description;
         IsActive = isActive;
         CreatedAt = DateTime.Now;
-        
+
+        Validate();
+    }
+
+    public void Activate()
+    {
+        IsActive = true;
+        Validate();
+    }
+    
+    public void Deactivate()
+    {
+        IsActive = false;
+        Validate();
+    }
+    
+    public void Update(string? name = null, string? description = null)
+    {
+        Name = name ?? Name;
+        Description = description ?? Description;
         Validate();
     }
 
@@ -32,6 +51,7 @@ public class Category
         if (Description == null)
             throw new EntityValidationException($"{nameof(Description)} should not be null");
         if (Description.Length > 10000)
-            throw new EntityValidationException($"{nameof(Description)} should be less or equal to 10000 characters long");
+            throw new EntityValidationException(
+                $"{nameof(Description)} should be less or equal to 10000 characters long");
     }
 }
